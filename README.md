@@ -38,13 +38,21 @@ Just drag image files onto `Compress Images.bat`. No installation needed.
 
 ## Compression Settings
 
-Adjust at the top of `compress_images.py`:
+Double-click `Configure.bat` (or run `python configure.py`) to open the settings menu:
 
-| Format | Setting | Default |
-|--------|---------|---------|
-| JPEG | `JPEG_QUALITY` | 75 (range: 1–95) |
-| PNG | `PNG_COMPRESS` | 9 (lossless, max compression) |
-| WebP | `WEBP_QUALITY` | 80 |
+```
+  Image Compressor — Settings
+────────────────────────────────────────────────
+  1.  JPEG Quality       75        (1–95)
+  2.  WebP Quality       80        (1–95)
+  3.  PNG Compression     9        (0–9, lossless)
+  4.  JPEG Subsampling  4:4:4 (best)
+────────────────────────────────────────────────
+  S.  Save and exit
+  Q.  Quit without saving
+```
+
+Settings are saved to `config.json` alongside the scripts. Defaults are used if the file is missing.
 
 ---
 
