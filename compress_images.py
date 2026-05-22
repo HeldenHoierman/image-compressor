@@ -11,15 +11,29 @@ MessageBox listing them so nothing fails without explanation.
 
 import sys
 import os
+import json
 import traceback
 import ctypes
 
 # ── Settings ──────────────────────────────────────────────────────────────────
 
-JPEG_QUALITY     = 75
-JPEG_SUBSAMPLING = 0   # 0 = 4:4:4 (best chroma quality)
-PNG_COMPRESS     = 9   # lossless, max compression
-WEBP_QUALITY     = 80
+def _load_settings():
+    _defaults = {"jpeg_quality": 75, "jpeg_subsampling": 0, "png_compress": 9, "webp_quality": 80}
+    _cfg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+    if os.path.exists(_cfg_path):
+        try:
+            with open(_cfg_path) as _f:
+                _data = json.load(_f)
+            _defaults.update({k: _data[k] for k in _defaults if k in _data})
+        except Exception:
+            pass
+    return _defaults
+
+_settings        = _load_settings()
+JPEG_QUALITY     = _settings["jpeg_quality"]
+JPEG_SUBSAMPLING = _settings["jpeg_subsampling"]
+PNG_COMPRESS     = _settings["png_compress"]
+WEBP_QUALITY     = _settings["webp_quality"]
 
 SUPPORTED = {'.jpg', '.jpeg', '.png', '.webp', '.bmp', '.tiff', '.tif'}
 
